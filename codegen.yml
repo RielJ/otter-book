@@ -1,0 +1,9 @@
+overwrite: true
+schema: "http://127.0.0.1:3000/graphql"
+documents: "lib/**/!(*.d).{ts,tsx}"
+generates:
+  lib/graphql.tsx:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-react-apollo"
