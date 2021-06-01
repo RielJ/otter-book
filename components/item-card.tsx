@@ -2,7 +2,7 @@ import Image from "next/image";
 export interface ItemCardProps {
   src: string;
   name: string;
-  hideTitle: Boolean;
+  hideTitle?: Boolean;
 }
 
 const ItemCard: React.SFC<ItemCardProps> = ({
