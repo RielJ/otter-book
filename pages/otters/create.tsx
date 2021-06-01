@@ -1,19 +1,17 @@
-import React, { useEffect, useRef, useState } from "react";
-import Layout from "../../components/layout";
+import React, { useRef, useState } from "react";
+import Layout from "../../layout/main-layout";
 import useForm from "../../mixins/useForm";
 import Image from "next/image";
 import CREATE_OTTER from "../../lib/mutations/createOtter";
-import {
-  CreateOtterInput,
-  MutationCreateOtterArgs,
-  useCreateOtterMutation,
-} from "../../lib/graphql";
+import { MutationCreateOtterArgs } from "../../lib/graphql";
 import { initializeApollo } from "../../lib/apollo";
-import { useS3Upload, getImageData } from "next-s3-upload";
+import { useS3Upload } from "next-s3-upload";
+import { useRouter } from "next/router";
 
 export interface CreateProps {}
 
 const Create: React.SFC<CreateProps> = () => {
+  const router = useRouter();
   const initialState = {
     name: "",
     location: "",
@@ -26,9 +24,11 @@ const Create: React.SFC<CreateProps> = () => {
     values: form,
   } = useForm(createOtterCallback, initialState);
   let [imageUrl, setImageUrl] = useState("");
+  let [loading, setLoading] = useState(false);
   let { FileInput, openFileDialog, uploadToS3 } = useS3Upload();
 
   async function createOtterCallback() {
+    setLoading(true);
     const client = initializeApollo();
     // console.log({ ...form, imageFile });
     const { data } = await client.mutate<MutationCreateOtterArgs>({
@@ -40,12 +40,15 @@ const Create: React.SFC<CreateProps> = () => {
         },
       },
     });
-    console.log(data);
+    router.push("/otters");
+    setLoading(false);
   }
 
   const onImageChange = async (file: File) => {
+    setLoading(true);
     let { url } = await uploadToS3(file);
     setImageUrl(url);
+    setLoading(false);
   };
 
   const onImageUpload = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -61,14 +64,18 @@ const Create: React.SFC<CreateProps> = () => {
 
   return (
     <Layout>
-      <div className="mt-5">
+      <div className="md:mt-5">
         <div>
-          <form onSubmit={onSubmit}>
-            <div className="text-2xl text-center font-medium">Create Otter</div>
+          <form
+            onSubmit={onSubmit}
+            className="blur bg-opacity-50 bg-black p-5 rounded-md text-white"
+          >
+            <div className="text-4xl text-center font-medium ">Add Otter</div>
             <div className="m-5 lg:grid grid-cols-12 gap-5">
-              <div className="md:col-span-4 col-span-12 md:h-auto flex justify-center">
-                <div className="relative w-72 h-7w-72 rounded-full mt-5">
-                  <div className="relative inline-block">
+              <div className="md:col-span-12 lg:col-span-4 col-span-12 md:h-auto flex flex-col items-center justify-center">
+                <div className="relative w-72 h-7w-72 rounded-full mdLmt-5">
+                  <div className="relative inline-block overflow-hidden">
+                    {loading && !imageUrl && <div className="loading"></div>}
                     <FileInput
                       onChange={onImageChange}
                       type="file"
@@ -76,17 +83,9 @@ const Create: React.SFC<CreateProps> = () => {
                       name="image"
                       className="hidden"
                     />
-                    {/* <input
-                      type="file"
-                      id="image"
-                      name="image"
-                      className="hidden"
-                      ref={inputImage}
-                      onChange={onImageChange}
-                    /> */}
                     <div className="h-72 w-72 relative">
                       <Image
-                        src={imageUrl || "/otter_1.jpg"}
+                        src={imageUrl || "/otter-profile.png"}
                         alt="Otter Picture"
                         layout="fill" // required
                         objectFit="cover" // change to suit your needs
@@ -98,7 +97,7 @@ const Create: React.SFC<CreateProps> = () => {
                       alt="Otter Picture"
                       className="h-full w-full object-cover rounded-full"
                     /> */}
-                    <div className="hover:shadow-lg absolute top-0 h-full w-full rounded-full text-white bg-black bg-opacity-25 flex text-center items-center justify-center ">
+                    <div className="hover:shadow-lg absolute top-0 h-full w-full rounded-full  bg-black bg-opacity-25 flex text-center items-center justify-center ">
                       <button
                         onClick={onImageUpload}
                         className="p-2 focus:outline-none hover:bg-white hover:bg-opacity-25 rounded-full transition duration-200"
@@ -148,43 +147,54 @@ const Create: React.SFC<CreateProps> = () => {
                     </div>
                   </div>
                 </div>
+                <div>{}</div>
               </div>
-              <div className="md:col-span-8 col-span-12 space-y-5">
+              <div className="md:col-span-8 col-span-full space-y-5">
+                {loading && imageUrl && <div className="loading"></div>}
                 <div>
+                  <label htmlFor="name" className="">
+                    Name
+                  </label>
                   <input
                     type="text"
                     id="name"
                     name="name"
-                    placeholder="Name"
+                    placeholder="Enter Otter Name"
                     onChange={onChange}
                     required
-                    className="p-2 shadow-sm focus:ring-blue-500 focus:border-blue-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md"
+                    className="px-2 py-4 mt-1 block w-full sm:text-sm  bg-transparent blur-sm text-xl focus:border-blue-500 outline-none border-b-2 border-gray-400 "
                   />
                 </div>
                 <div>
+                  <label htmlFor="location" className=" ">
+                    Location
+                  </label>
                   <input
                     type="text"
                     id="location"
                     name="location"
-                    placeholder="Location"
+                    placeholder="Enter Otter Location"
                     onChange={onChange}
                     required
-                    className="p-2 shadow-sm focus:ring-blue-500 focus:border-blue-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md"
+                    className="px-2 py-4 mt-1 block w-full sm:text-sm  bg-transparent blur-sm text-xl focus:border-blue-500 outline-none border-b-2 border-gray-400 "
                   />
                 </div>
                 <div>
+                  <label htmlFor="about" className="">
+                    About
+                  </label>
                   <textarea
                     rows={5}
                     id="about"
                     name="about"
-                    placeholder="About"
+                    placeholder="Give Some Description to the otter"
                     onChange={onChange}
                     required
-                    className="p-2 w-full"
+                    className="px-2 py-4 mt-1 block w-full sm:text-sm  bg-transparent blur-sm text-xl focus:border-blue-500 outline-none border-b-2 border-gray-400 "
                   />
                 </div>
                 <div>
-                  <button className="w-full bg-blue-500 text-white p-2 rounded-md font-medium hover:shadow-lg">
+                  <button className="w-full bg-blue-500 p-2 rounded-md font-medium hover:shadow-lg">
                     Add Otter
                   </button>
                 </div>

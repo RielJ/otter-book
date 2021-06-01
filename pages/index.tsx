@@ -1,19 +1,37 @@
 import Link from "next/link";
 import React from "react";
-import Layout from "../components/layout";
-import Otter from "../components/otter";
 
 export default function Home() {
   return (
-    <Layout home={true}>
-      <div className="">
-        <div className="text-3xl mb-5">Welcome To OtterBook</div>
-        <Link href="/otters/">
-          <a className="text-lg font-bold px-5 py-2 bg-blue-600  text-white rounded-md hover:bg-blue-700 hover:shadow-inner shadow-md">
-            Otter List
+    <div
+      className="flex flex-col items-center justify-center flex-grow"
+      style={{
+        background:
+          "linear-gradient(rgb(0 0 0 / 60%), rgb(0 0 0 / 60%)), url(/otter-bg.jpg) no-repeat center center fixed",
+        backgroundSize: "cover",
+        maxHeight: "100vh",
+        minHeight: "100vh",
+      }}
+    >
+      <main className="flex flex-col items-center justify-center flex-grow px-20 text-center max-w-screen-lg text-white ">
+        <h1 className="text-7xl font-bold">
+          Welcome to <span className="text-blue-600">Otter</span> World.
+        </h1>
+        <h2 className="text-2xl my-4">
+          Brighten up your day with this wonderful otter images.
+        </h2>
+        <p className="my-2 text-lg">
+          Singapore has a lot of otters. Unfortunately for the poor guys, no one
+          knows their names, or anything about them. They run around all over
+          the place, being cute and happy, but so mysterious. So we’re going to
+          fix that, and build a small otter social network.
+        </p>
+        <Link href="/otters">
+          <a className="px-6 py-2 bg-blue-600 font-bold text-lg rounded-3xl text-white hover:bg-blue-700 hover:shadow-lg">
+            Proceed
           </a>
         </Link>
-      </div>
-    </Layout>
+      </main>
+    </div>
   );
 }
