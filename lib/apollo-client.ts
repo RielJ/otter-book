@@ -6,7 +6,7 @@ function createApolloClient() {
     ssrMode: typeof window === "undefined",
     // link: createUploadLink({ uri: "http://127.0.0.1:3000/graphql",  }),
     link: new HttpLink({
-      uri: "http://127.0.0.1:3000/graphql",
+      uri: process.env.S3_GATEWAY_URI,
     }),
     cache: new InMemoryCache(),
   });
