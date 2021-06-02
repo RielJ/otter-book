@@ -2,7 +2,6 @@ import Link from "next/link";
 import React from "react";
 
 export default function Home() {
-  console.log(process.env);
   return (
     <div
       className="flex flex-col items-center justify-center flex-grow"

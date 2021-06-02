@@ -1,17 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Layout from "../../layout/main-layout";
 import ItemCard from "../../components/item-card";
 import { useRouter } from "next/router";
 import { InferGetServerSidePropsType } from "next";
 import GET_OTTER_LIST from "../../lib/apollo-graphql/queries/getOtterList";
-import { useApollo } from "../../lib/apollo-graphql/apollo";
+import { initializeApollo } from "../../lib/apollo-graphql/apollo";
 import { Otter as OtterType } from "../../lib/apollo-graphql/schema.types";
 
 export default function Home({
   otters,
+  res,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const router = useRouter();
-  console.log(process.env);
+  useEffect(() => {
+    console.log(otters);
+    console.log(process.env);
+  }, [otters, res]);
   return (
     <Layout home={true}>
       <div className="mt-5 grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -35,13 +39,15 @@ export default function Home({
 }
 
 export async function getServerSideProps() {
-  const client = useApollo();
-  const { data } = await client.query({
+  const client = initializeApollo();
+  const res = await client.query({
     query: GET_OTTER_LIST,
   });
+  console.log(res);
   return {
     props: {
-      otters: data.getOtterList.data || null,
+      otters: res.data.getOtterList,
+      res,
     },
   };
 }

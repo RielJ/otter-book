@@ -4,7 +4,7 @@ function createApolloClient() {
   return new ApolloClient({
     ssrMode: typeof window === "undefined",
     link: new HttpLink({
-      uri: process.env.S3_GATEWAY_URI,
+      uri: process.env.URI,
     }),
     cache: new InMemoryCache(),
   });
