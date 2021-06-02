@@ -85,10 +85,14 @@ const Create = () => {
             <a className="mr-5">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-14 w-14 inline-block cursor-pointer bg-blue-600 text-white hover:bg-blue-700 rounded-md"
+                className="inline-block cursor-pointer bg-blue-600 text-white hover:bg-blue-700 rounded-md"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
+                style={{
+                  top: "3.5rem",
+                  left: "3.5rem",
+                }}
               >
                 <path
                   strokeLinecap="round"
