@@ -35,8 +35,8 @@ export default function OtterDetails({
                 viewBox="0 0 24 24"
                 stroke="currentColor"
                 style={{
-                  top: "3.5rem",
-                  left: "3.5rem",
+                  width: "3.5rem",
+                  height: "3.5rem",
                 }}
               >
                 <path

@@ -90,8 +90,8 @@ const Create = () => {
                 viewBox="0 0 24 24"
                 stroke="currentColor"
                 style={{
-                  top: "3.5rem",
-                  left: "3.5rem",
+                  width: "3.5rem",
+                  height: "3.5rem",
                 }}
               >
                 <path
@@ -108,26 +108,6 @@ const Create = () => {
           onSubmit={onSubmit}
           className="blur relative bg-opacity-50 bg-black p-5 rounded-md text-white"
         >
-          {/* <div className="absolute">
-            <Link href="/otters/">
-              <a className="mr-5 ">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-10 w-10 inline-block cursor-pointer bg-blue-600 text-white hover:bg-blue-700 rounded-md"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M11 17l-5-5m0 0l5-5m-5 5h12"
-                  />
-                </svg>
-              </a>
-            </Link>
-          </div> */}
           <div className="text-4xl text-center font-medium ">Add Otter</div>
           <div className="m-5 lg:grid grid-cols-12 gap-5">
             <div className="md:col-span-12 lg:col-span-4 col-span-12 md:h-auto flex flex-col items-center justify-center">
@@ -145,16 +125,11 @@ const Create = () => {
                     <Image
                       src={imageUrl || "/otter-profile.png"}
                       alt="Otter Picture"
-                      layout="fill" // required
-                      objectFit="cover" // change to suit your needs
-                      className="rounded-full" // just an example
+                      layout="fill"
+                      objectFit="cover"
+                      className="rounded-full"
                     />
                   </div>
-                  {/* <img
-                    src={form.src || "/otter_1.jpg"}
-                    alt="Otter Picture"
-                    className="h-full w-full object-cover rounded-full"
-                  /> */}
                   <div className="hover:shadow-lg absolute top-0 h-full w-full rounded-full  bg-black bg-opacity-25 flex text-center items-center justify-center ">
                     <button
                       onClick={onImageUpload}
@@ -248,7 +223,7 @@ const Create = () => {
                   placeholder="Give Some Description to the otter"
                   onChange={onChange}
                   required
-                  className="px-2 py-4 mt-1 block w-full sm:text-sm  bg-transparent blur-sm text-xl focus:border-blue-500 outline-none border-b-2 border-gray-400 "
+                  className="px-2 mt-1 block w-full sm:text-sm  bg-transparent blur-sm text-xl focus:border-blue-500 outline-none border-b-2 border-gray-400 "
                 />
               </div>
               <div>
