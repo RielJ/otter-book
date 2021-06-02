@@ -21,18 +21,18 @@ export default function OtterDetails({
       <div className="mt-5 grid md:grid-cols-5 grid-cols-1 gap-6 px-7 blur bg-opacity-50 bg-black p-5 rounded-md text-gray-300">
         <div className="col-span-3">
           <ItemCard
-            src={otter.imageUrl || "/otter_1.jpg"}
+            src={otter?.imageUrl || "/otter_1.jpg"}
             name={otter?.name || ""}
             hideTitle={true}
           />
         </div>
         <div className="flex flex-col justify-center col-span-2">
-          <h1 className="text-5xl font-bold">{otter.name}</h1>
-          <h2 className="text-2xl">{otter.location}</h2>
+          <h1 className="text-5xl font-bold">{otter?.name}</h1>
+          <h2 className="text-2xl">{otter?.location}</h2>
         </div>
         <div className="col-span-full">
           <h1 className="text-3xl font-medium">About</h1>
-          <p>{otter.about}</p>
+          <p>{otter?.about}</p>
         </div>
       </div>
     </Layout>

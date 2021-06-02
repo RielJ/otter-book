@@ -25,7 +25,14 @@ const Layout: React.SFC<LayoutProps> = ({ children, home = false }) => {
         <link rel="shortcut icon" href="/coffee-cup.png" />
       </Head>
       <BaseHeader home={home} />
-      <div className="pt-32 sm:w-11/12 xl:w-2/3 lg:w-3/4 md:w-5/6 sm:m-auto mx-4 min-h-screen max-h-screen h-screen">
+      <div
+        className="pt-32 sm:w-11/12 xl:w-2/3 lg:w-3/4 md:w-5/6 sm:m-auto mx-auto"
+        style={{
+          paddingTop: "8rem",
+          marginLeft: "auto",
+          marginRight: "auto",
+        }}
+      >
         {children}
       </div>
     </div>
