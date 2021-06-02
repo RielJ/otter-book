@@ -2,8 +2,8 @@ import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import React from "react";
 import ItemCard from "../../../components/item-card";
 import Layout from "../../../layout/main-layout";
-import { initializeApollo } from "../../../lib/apollo";
-import GET_OTTER from "../../../lib/queries/getOtter";
+import { initializeApollo } from "../../../lib/apollo-graphql/apollo";
+import GET_OTTER from "../../../lib/apollo-graphql/queries/getOtter";
 
 export interface OtterDetailsProps {}
 

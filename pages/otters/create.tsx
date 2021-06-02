@@ -2,9 +2,9 @@ import React, { useRef, useState } from "react";
 import Layout from "../../layout/main-layout";
 import useForm from "../../mixins/useForm";
 import Image from "next/image";
-import CREATE_OTTER from "../../lib/mutations/createOtter";
-import { MutationCreateOtterArgs } from "../../lib/graphql";
-import { initializeApollo } from "../../lib/apollo";
+import CREATE_OTTER from "../../lib/apollo-graphql/mutations/createOtter";
+import { MutationCreateOtterArgs } from "../../lib/apollo-graphql/schema.types";
+import { useApollo } from "../../lib/apollo-graphql/apollo";
 import { useS3Upload } from "next-s3-upload";
 import { useRouter } from "next/router";
 
@@ -29,7 +29,7 @@ const Create: React.SFC<CreateProps> = () => {
 
   async function createOtterCallback() {
     setLoading(true);
-    const client = initializeApollo();
+    const client = useApollo();
     // console.log({ ...form, imageFile });
     const { data } = await client.mutate<MutationCreateOtterArgs>({
       mutation: CREATE_OTTER,
