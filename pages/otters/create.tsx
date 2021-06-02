@@ -5,13 +5,15 @@ import Image from "next/image";
 import CREATE_OTTER from "../../lib/apollo-graphql/mutations/createOtter";
 import { MutationCreateOtterArgs } from "../../lib/apollo-graphql/schema.types";
 import { initializeApollo } from "../../lib/apollo-graphql/apollo";
-import { useS3Upload } from "next-s3-upload";
 import { useRouter } from "next/router";
+import { useS3Upload } from "next-s3-upload";
+import Spinner from "../../components/Spinner";
 
 export interface CreateProps {}
 
-const Create: React.SFC<CreateProps> = () => {
+const Create = () => {
   const router = useRouter();
+  const client = initializeApollo();
   const initialState = {
     name: "",
     location: "",
@@ -25,29 +27,36 @@ const Create: React.SFC<CreateProps> = () => {
   } = useForm(createOtterCallback, initialState);
   let [imageUrl, setImageUrl] = useState("");
   let [loading, setLoading] = useState(false);
+  let [imageUploading, setImageUploading] = useState(false);
   let { FileInput, openFileDialog, uploadToS3 } = useS3Upload();
 
   async function createOtterCallback() {
     setLoading(true);
-    const client = initializeApollo();
-    const { data } = await client.mutate<MutationCreateOtterArgs>({
-      mutation: CREATE_OTTER,
-      variables: {
-        input: {
-          ...form,
-          imageUrl,
+    try {
+      console.log({ ...form, imageUrl });
+      const { data } = await client.mutate<MutationCreateOtterArgs>({
+        mutation: CREATE_OTTER,
+        variables: {
+          input: {
+            ...form,
+            imageUrl,
+          },
         },
-      },
-    });
-    router.push("/otters");
-    setLoading(false);
+      });
+      console.log(data);
+      router.push("/otters");
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   }
 
   const onImageChange = async (file: File) => {
-    setLoading(true);
+    setImageUploading(true);
     let { url } = await uploadToS3(file);
     setImageUrl(url);
-    setLoading(false);
+    setImageUploading(false);
   };
 
   const onImageUpload = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -74,7 +83,7 @@ const Create: React.SFC<CreateProps> = () => {
               <div className="md:col-span-12 lg:col-span-4 col-span-12 md:h-auto flex flex-col items-center justify-center">
                 <div className="relative w-72 h-7w-72 rounded-full mdLmt-5">
                   <div className="relative inline-block overflow-hidden">
-                    {loading && !imageUrl && <div className="loading"></div>}
+                    {imageUploading && <div className="loading"></div>}
                     <FileInput
                       onChange={onImageChange}
                       type="file"
@@ -149,7 +158,7 @@ const Create: React.SFC<CreateProps> = () => {
                 <div>{}</div>
               </div>
               <div className="md:col-span-8 col-span-full space-y-5">
-                {loading && imageUrl && <div className="loading"></div>}
+                {loading && imageUrl && <Spinner color="blue" />}
                 <div>
                   <label htmlFor="name" className="">
                     Name

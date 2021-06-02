@@ -1,4 +1,0 @@
-
-S3_UPLOAD_BUCKET=otter-images-bucket
-S3_UPLOAD_REGION=ap-southeast-1
-URI=https://localhost:3000/graphql

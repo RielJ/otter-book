@@ -1,15 +1,21 @@
-import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { GetStaticProps, InferGetStaticPropsType } from "next";
 import React from "react";
 import ItemCard from "../../../components/item-card";
 import Layout from "../../../layout/main-layout";
 import { initializeApollo } from "../../../lib/apollo-graphql/apollo";
 import GET_OTTER from "../../../lib/apollo-graphql/queries/getOtter";
+import GET_OTTER_LIST from "../../../lib/apollo-graphql/queries/getOtterList";
+import { Otter } from "../../../lib/apollo-graphql/schema.types";
 
-export interface OtterDetailsProps {}
+export interface OtterDetailsProps {
+  params?: {
+    id: string;
+  };
+}
 
 export default function OtterDetails({
   otter,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+}: InferGetStaticPropsType<GetStaticProps>) {
   return (
     <Layout>
       <div className="mt-5 grid md:grid-cols-5 grid-cols-1 gap-6 px-7 blur bg-opacity-50 bg-black p-5 rounded-md text-gray-300">
@@ -32,13 +38,28 @@ export default function OtterDetails({
     </Layout>
   );
 }
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { id } = context.query;
+
+export async function getStaticPaths() {
+  const client = initializeApollo();
+  const res = await client.query({
+    query: GET_OTTER_LIST,
+  });
+
+  const paths = res.data.getOtterList.map((otter: Otter) => ({
+    params: { id: otter.id },
+  }));
+  return {
+    paths,
+    fallback: true,
+  };
+}
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
   const client = initializeApollo();
   const { data } = await client.query({
     query: GET_OTTER,
     variables: {
-      input: { id },
+      input: { id: params?.id },
     },
   });
   return {

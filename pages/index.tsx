@@ -6,9 +6,6 @@ export default function Home() {
     <div
       className="flex flex-col items-center justify-center flex-grow"
       style={{
-        background:
-          "linear-gradient(rgb(0 0 0 / 60%), rgb(0 0 0 / 60%)), url(/otter-bg.jpg) no-repeat center center fixed",
-        backgroundSize: "cover",
         maxHeight: "100vh",
         minHeight: "100vh",
       }}

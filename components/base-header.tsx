@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 export default function BaseHeader({ home = false }) {
   const [top, setTop] = useState(true);
 
-  // detect whether user has scrolled the page down by 10px
   useEffect(() => {
     const scrollHandler = () => {
       window.pageYOffset > 10 ? setTop(false) : setTop(true);
@@ -27,7 +26,7 @@ export default function BaseHeader({ home = false }) {
                 <a className="mr-5 ">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-8 w-8 inline-block cursor-pointer bg-blue-600  text-white hover:bg-blue-700 rounded-md"
+                    className="h-8 w-8 inline-block cursor-pointer bg-blue-600 text-white hover:bg-blue-700 rounded-md"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -43,7 +42,7 @@ export default function BaseHeader({ home = false }) {
               </Link>
             )}
             <Link href="/">
-              <a className="text-blue-600 hover:text-blue-500 text-3xl font-bold">
+              <a className="text-white hover:text-blue-400 text-3xl font-bold">
                 OtterBook
               </a>
             </Link>
