@@ -24,6 +24,7 @@ export default function OtterDetails({
           style={{
             top: "-1.25rem",
             left: "-1.25rem",
+            zIndex: 50,
           }}
         >
           <Link href="/otters/">
