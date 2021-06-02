@@ -6,7 +6,7 @@ import { initializeApollo } from "../../../lib/apollo-graphql/apollo";
 import GET_OTTER from "../../../lib/apollo-graphql/queries/getOtter";
 import GET_OTTER_LIST from "../../../lib/apollo-graphql/queries/getOtterList";
 import { Otter } from "../../../lib/apollo-graphql/schema.types";
-
+import Link from "next/link";
 export interface OtterDetailsProps {
   params?: {
     id: string;
@@ -18,7 +18,33 @@ export default function OtterDetails({
 }: InferGetStaticPropsType<GetStaticProps>) {
   return (
     <Layout>
-      <div className="mt-5 grid md:grid-cols-5 grid-cols-1 gap-6 px-7 blur bg-opacity-50 bg-black p-5 rounded-md text-gray-300">
+      <div className="mt-5 grid md:grid-cols-5 grid-cols-1 gap-6 px-7 relative blur bg-opacity-50 bg-black p-5 rounded-md text-gray-300">
+        <div
+          className="absolute z-50 shadow-lg"
+          style={{
+            top: "-1.25rem",
+            left: "-1.25rem",
+          }}
+        >
+          <Link href="/otters/">
+            <a className="mr-5">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-14 w-14 inline-block cursor-pointer bg-blue-600 text-white hover:bg-blue-700 rounded-md"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M11 17l-5-5m0 0l5-5m-5 5h12"
+                />
+              </svg>
+            </a>
+          </Link>
+        </div>
         <div className="col-span-3">
           <ItemCard
             src={otter?.imageUrl || "/otter_1.jpg"}

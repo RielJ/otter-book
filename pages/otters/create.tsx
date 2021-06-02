@@ -8,6 +8,7 @@ import { initializeApollo } from "../../lib/apollo-graphql/apollo";
 import { useRouter } from "next/router";
 import { useS3Upload } from "next-s3-upload";
 import Spinner from "../../components/Spinner";
+import Link from "next/link";
 
 export interface CreateProps {}
 
@@ -72,11 +73,57 @@ const Create = () => {
 
   return (
     <Layout>
-      <div className="flex-col justify-center items-center w-full">
+      <div className="flex-col justify-center relative items-center w-full">
+        <div
+          className="absolute z-50 shadow-lg"
+          style={{
+            top: "-1.25rem",
+            left: "-1.25rem",
+          }}
+        >
+          <Link href="/otters/">
+            <a className="mr-5">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-14 w-14 inline-block cursor-pointer bg-blue-600 text-white hover:bg-blue-700 rounded-md"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M11 17l-5-5m0 0l5-5m-5 5h12"
+                />
+              </svg>
+            </a>
+          </Link>
+        </div>
         <form
           onSubmit={onSubmit}
-          className="blur bg-opacity-50 bg-black p-5 rounded-md text-white"
+          className="blur relative bg-opacity-50 bg-black p-5 rounded-md text-white"
         >
+          {/* <div className="absolute">
+            <Link href="/otters/">
+              <a className="mr-5 ">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-10 w-10 inline-block cursor-pointer bg-blue-600 text-white hover:bg-blue-700 rounded-md"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M11 17l-5-5m0 0l5-5m-5 5h12"
+                  />
+                </svg>
+              </a>
+            </Link>
+          </div> */}
           <div className="text-4xl text-center font-medium ">Add Otter</div>
           <div className="m-5 lg:grid grid-cols-12 gap-5">
             <div className="md:col-span-12 lg:col-span-4 col-span-12 md:h-auto flex flex-col items-center justify-center">

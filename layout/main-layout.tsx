@@ -29,6 +29,7 @@ const Layout: React.SFC<LayoutProps> = ({ children, home = false }) => {
         className="pt-32 sm:w-11/12 xl:w-2/3 lg:w-3/4 md:w-5/6 sm:m-auto mx-auto"
         style={{
           paddingTop: "8rem",
+          paddingBottom: "8rem",
           marginLeft: "auto",
           marginRight: "auto",
         }}
