@@ -7,8 +7,8 @@ function createApolloClient() {
   });
 
   const httpLink = new HttpLink({
-    // uri: "https://2uplsmrmkj.execute-api.ap-southeast-1.amazonaws.com/prod/graphql",
-    uri: "http://localhost:3000/graphql",
+    uri: "https://2uplsmrmkj.execute-api.ap-southeast-1.amazonaws.com/prod/graphql",
+    // uri: "http://localhost:3000/graphql",
   });
 
   return new ApolloClient({
