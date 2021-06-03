@@ -1,13 +1,16 @@
 import React from "react";
 
 interface SpinnerInterface {
-  color: string;
+  color?: string;
   className?: string;
 }
 
-export default function Spinner({ color, className }: SpinnerInterface) {
+export default function Spinner({
+  color = "blue",
+  className,
+}: SpinnerInterface) {
   return (
-    <div className="top-1/2 left-1/2 block absolute ">
+    <div className="top-1/2 left-1/2 block absolute z-50">
       <svg
         fill={color}
         viewBox="0 0 1792 1792"

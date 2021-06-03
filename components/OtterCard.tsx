@@ -12,16 +12,8 @@ export interface OtterCardProps {
 
 export default function OtterCard({ image, title, body }: OtterCardProps) {
   return (
-    <div className="hover:shadow-lg border-l-4 border-transparent hover:border-blue-500  cursor-pointer relative rounded-md overflow-hidden card shadow-lg">
+    <div className="hover:shadow-lg border-l-4 border-transparent hover:border-blue-500  cursor-pointer relative rounded-md overflow-hidden card shadow-lg ">
       <div className="relative flex flex-col border-gray-200 rounded-lg`">
-        {/* <Image
-          src={image.src}
-          alt={image.alt}
-          width={1200}
-          height={600}
-          className="max-w-full h-auto"
-        /> */}
-
         <div className="relative px-4 py-10 shadow-lg sm:p-20">
           <div className="h-64 w-96">
             <Image

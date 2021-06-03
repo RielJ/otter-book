@@ -1,12 +1,15 @@
+import Link from "next/link";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
 import React from "react";
-import ItemCard from "../../../components/item-card";
-import Layout from "../../../layout/main-layout";
-import { initializeApollo } from "../../../lib/apollo-graphql/apollo";
-import GET_OTTER from "../../../lib/apollo-graphql/queries/getOtter";
-import GET_OTTER_LIST from "../../../lib/apollo-graphql/queries/getOtterList";
-import { Otter } from "../../../lib/apollo-graphql/schema.types";
-import Link from "next/link";
+
+import MainLayout from "layout/MainLayout";
+import ItemCard from "components/ItemCard";
+
+import { initializeApollo } from "lib/apollo-graphql/apollo";
+import GET_OTTER from "lib/apollo-graphql/queries/getOtter";
+import GET_OTTER_LIST from "lib/apollo-graphql/queries/getOtterList";
+import { Otter } from "lib/apollo-graphql/schema.types";
+import BackButton from "components/BackButton";
 export interface OtterDetailsProps {
   params?: {
     id: string;
@@ -17,40 +20,21 @@ export default function OtterDetails({
   otter,
 }: InferGetStaticPropsType<GetStaticProps>) {
   return (
-    <Layout>
+    <MainLayout>
       <div className="mt-5 grid md:grid-cols-5 grid-cols-1 gap-6 px-7 relative blur bg-opacity-50 bg-black p-5 rounded-md text-gray-300">
         <div
-          className="absolute z-50 shadow-lg"
+          className="absolute z-10 shadow-l sm:block hidden"
           style={{
             top: "-1.25rem",
             left: "-1.25rem",
-            zIndex: 50,
           }}
         >
-          <Link href="/otters/">
-            <a className="mr-5">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="inline-block cursor-pointer bg-blue-600 text-white hover:bg-blue-700 rounded-md"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                style={{
-                  width: "3.5rem",
-                  height: "3.5rem",
-                }}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M11 17l-5-5m0 0l5-5m-5 5h12"
-                />
-              </svg>
-            </a>
-          </Link>
+          <BackButton href="/otters" />
         </div>
-        <div className="col-span-3">
+        <div className="absolute z-10 shadow-lg sm:hidden top-3 left-3">
+          <BackButton href="/otters" />
+        </div>
+        <div className="col-span-3 pt-14 sm:pt-0 b-2 bg-gray-300">
           <ItemCard
             src={otter?.imageUrl || "/otter_1.jpg"}
             name={otter?.name || ""}
@@ -66,7 +50,7 @@ export default function OtterDetails({
           <p>{otter?.about}</p>
         </div>
       </div>
-    </Layout>
+    </MainLayout>
   );
 }
 
